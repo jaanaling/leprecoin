@@ -98,6 +98,7 @@ class GoalsScreen extends StatelessWidget {
                                         ),
                                         const Gap(4),
                                         LinearPercentIndicator(
+                                          padding: EdgeInsets.zero,
                                           lineHeight: 6,
                                           percent: list[index].nowsum /
                                               list[index].finalsum,
