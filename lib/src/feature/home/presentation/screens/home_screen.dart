@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:leprecoin/routes/route_value.dart';
 import 'package:leprecoin/src/core/utils/icon_provider.dart';
 import 'package:leprecoin/src/feature/goals/bloc/goals_bloc.dart';
 import 'package:leprecoin/src/feature/transaction/bloc/transaction_bloc.dart';
@@ -212,28 +214,32 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         ),
                         Gap(11),
-                        Container(
-                          width: 119,
-                          height: 119,
-                          decoration: ShapeDecoration(
-                            color: Colors.black.withOpacity(0.4099999964237213),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
+                        CupertinoButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {context.push("${RouteValue.home.path}/${RouteValue.analytic.path}");},
+                          child: Container(
+                            width: 119,
+                            height: 119,
+                            decoration: ShapeDecoration(
+                              color: Colors.black.withOpacity(0.4099999964237213),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                              shadows: const [
+                                BoxShadow(
+                                  color: Color(0x3F000000),
+                                  blurRadius: 4,
+                                  offset: Offset(0, 4),
+                                  spreadRadius: 0,
+                                )
+                              ],
                             ),
-                            shadows: const [
-                              BoxShadow(
-                                color: Color(0x3F000000),
-                                blurRadius: 4,
-                                offset: Offset(0, 4),
-                                spreadRadius: 0,
-                              )
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(11.0),
-                            child: Image.asset(
-                                IconProvider.graf.buildImageUrl(),
-                                fit: BoxFit.cover),
+                            child: Padding(
+                              padding: const EdgeInsets.all(11.0),
+                              child: Image.asset(
+                                  IconProvider.graf.buildImageUrl(),
+                                  fit: BoxFit.cover),
+                            ),
                           ),
                         )
                       ],

@@ -11,6 +11,9 @@ enum RouteValue {
   home(
     path: '/home',
   ),
+    analytic(
+    path: 'analytic',
+  ),
   goals(
     path: '/goals',
   ),

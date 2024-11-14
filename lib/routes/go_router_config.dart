@@ -4,6 +4,7 @@ import 'package:leprecoin/routes/root_navigation_screen.dart';
 import 'package:leprecoin/routes/route_value.dart';
 import 'package:leprecoin/src/feature/chellenge/presentation/screens/chellenge_screen.dart';
 import 'package:leprecoin/src/feature/goals/presentation/screens/goals_screen.dart';
+import 'package:leprecoin/src/feature/home/presentation/screens/analytic_screen.dart';
 import 'package:leprecoin/src/feature/home/presentation/screens/home_screen.dart';
 import 'package:leprecoin/src/feature/splash/presentation/screens/splash_screen.dart';
 import 'package:leprecoin/src/feature/tips/presentation/screens/tips_screen.dart';
@@ -36,6 +37,13 @@ GoRouter buildGoRouter = GoRouter(
             GoRoute(
               path: RouteValue.home.path,
               builder: (context, state) => HomeScreen(),
+              routes: [
+            GoRoute(
+              path: RouteValue.analytic.path,
+              builder: (context, state) => AnalyticScreen(),
+           
+            )
+          ],
             ),
           ],
         ),
