@@ -28,7 +28,7 @@ class _TipsScreenState extends State<TipsScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   AppButton(
-                    color: const Color(0xFF6A009B),
+                    color:isFavorite? ButtonColors.purple:ButtonColors.white,
                     widget: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Text(
@@ -48,12 +48,11 @@ class _TipsScreenState extends State<TipsScreen> {
                         isFavorite = false;
                       });
                     },
-                    isSecond: !isFavorite,
                     width: MediaQuery.of(context).size.width * 0.2,
                   ),
                   const Gap(16),
                   AppButton(
-                    color: const Color(0xFFB30EDD),
+                    color:!isFavorite? ButtonColors.purple:ButtonColors.white,
                     widget: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Text(
@@ -73,7 +72,6 @@ class _TipsScreenState extends State<TipsScreen> {
                         isFavorite = true;
                       });
                     },
-                    isSecond: isFavorite,
                     width: MediaQuery.of(context).size.width * 0.4,
                   ),
                 ],
@@ -103,7 +101,7 @@ class _TipsScreenState extends State<TipsScreen> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(9, 0, 9, 13),
                           child: AppButton(
-                            color: const Color(0xFFB30EDD),
+                            color: ButtonColors.white,
                             widget: Padding(
                               padding: EdgeInsets.fromLTRB(
                                 11,
@@ -123,23 +121,22 @@ class _TipsScreenState extends State<TipsScreen> {
                               ),
                             ),
                             radius: 17,
-                            isSecond: true,
                           ),
                         ),
                         Positioned(
                           bottom: 0,
                           right: 0,
                           child: AppButton(
-                            color: const Color(0xFFB30EDD),
+                            color: ButtonColors.purple,
                             widget: Padding(
-                              padding: EdgeInsets.all(
-                                MediaQuery.of(context).size.width * 0.02,
+                              padding: EdgeInsets.only(
+                               top: 4, bottom: 3, left: 7, right: 7
                               ),
                               child: Icon(
                                list[index].isFavorite
                                     ? CupertinoIcons.heart_fill
                                     : CupertinoIcons.heart,
-                                size: MediaQuery.of(context).size.width * 0.08,
+                                size: 32,
                                 color: Colors.white,
                               ),
                             ),

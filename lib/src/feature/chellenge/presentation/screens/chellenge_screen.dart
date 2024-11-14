@@ -29,7 +29,7 @@ class ChellengeScreen extends StatelessWidget {
                     state.challenge[index].challenge.split(": ")[1];
 
                 return AppButton(
-                    color: Color(0xFF0FDD1C),
+                    color: ButtonColors.green,
                     widget: Padding(
                       padding: const EdgeInsets.fromLTRB(17, 10, 6, 10),
                       child: Column(
@@ -77,7 +77,7 @@ class ChellengeScreen extends StatelessWidget {
                                   'in progress')
                                 AppButton(
                                   width: 0,
-                                  color: Color(0xFFB30EDD),
+                                  color: ButtonColors.purple,
                                   onPressed: () {
                                     state.challenge[index].status =
                                         'not started';
@@ -104,7 +104,7 @@ class ChellengeScreen extends StatelessWidget {
                               Gap(16),
                               AppButton(
                                 width: 0,
-                                color: Color(0xFFB30EDD),
+                                color: ButtonColors.purple,
                                 onPressed: () {
                                   if (state.challenge[index].status ==
                                           'not started' ||

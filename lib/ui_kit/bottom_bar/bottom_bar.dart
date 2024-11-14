@@ -25,10 +25,11 @@ class _BottomBarState extends State<BottomBar> {
       child: DecoratedBox(
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(
-                IconProvider.bottom.buildImageUrl(),
-              ),
-              fit: BoxFit.fill),
+            image: AssetImage(
+              IconProvider.bottom.buildImageUrl(),
+            ),
+            fit: BoxFit.fill,
+          ),
         ),
         child: Stack(
           children: [
@@ -107,10 +108,18 @@ class _BottomBarState extends State<BottomBar> {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.17,
       child: IconButton(
-          onPressed: onPressed,
-          icon: AppIcon(
-            asset: index == _currentIndex ? iconAUrl : iconUrl,
-          )),
+        onPressed: onPressed,
+        icon: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return ScaleTransition(scale: animation, child: child);
+          },
+          child: AppIcon(
+            key: ValueKey<int>(_currentIndex == index ? 1 : 0),
+            asset: _currentIndex == index ? iconAUrl : iconUrl,
+          ),
+        ),
+      ),
     );
   }
 }

@@ -189,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 TransactionState>(
                               builder: (context, state1) {
                                 return AppButton(
-                                  color: const Color(0xFF0FDD1C),
+                                  color: ButtonColors.green,
                                   radius: 17,
                                   width: 0,
                                   widget: Padding(

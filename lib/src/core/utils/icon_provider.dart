@@ -46,6 +46,7 @@ enum IconProvider {
   travel(imageName: 'travel.png'),
   utilities(imageName: 'utilities.png'),
   pBack(imageName: 'p_back.png'),
+  logo(imageName: 'logo.png'),
   unknown(imageName: '');
 
   const IconProvider({
