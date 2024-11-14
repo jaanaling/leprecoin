@@ -1,7 +1,9 @@
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:leprecoin/src/core/utils/icon_provider.dart';
+
+import '../ui_kit/bottom_bar/bottom_bar.dart';
 
 class RootNavigationScreen extends StatefulWidget {
   final StatefulNavigationShell navigationShell;
@@ -20,75 +22,58 @@ class _RootNavigationScreenState extends State<RootNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-
     return CupertinoPageScaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: CupertinoColors.white,
       child: Stack(
         children: [
-          Positioned(
-            bottom: -(height * 0.15),
-            right: -(width * 0.227),
+          Positioned.fill(
             child: DecoratedBox(
-              decoration: const BoxDecoration(
-                color: Color(0xFFB6CAFF),
-                shape: BoxShape.circle,
-              ),
-              child: SizedBox(
-                width: height * 0.43625,
-                height: height * 0.43625,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    widget.navigationShell.currentIndex == 2
+                        ? IconProvider.pBack.buildImageUrl()
+                        : IconProvider.back.buildImageUrl(),
+                  ),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
-          if (currentIndex != 1)
+          if (widget.navigationShell.currentIndex == 0)
             Positioned(
-              top: -(height * 0.085),
-              left: -(width * 0.25),
-              child: Opacity(
-                opacity: 0.54,
+              top: 0,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.width,
                 child: DecoratedBox(
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFFFB6CA),
-                    shape: BoxShape.circle,
-                  ),
-                  child: SizedBox(
-                    width: height * 0.43625,
-                    height: height * 0.43625,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(IconProvider.topBack.buildImageUrl()),
+                      fit: BoxFit.fitHeight,
+                    ),
                   ),
                 ),
               ),
             ),
           widget.navigationShell,
-        
+          Positioned(
+              bottom: 0,
+              right: 0,
+              left: 0,
+              child: BottomBar(
+                onTap: _onTap,
+              )),
         ],
       ),
     );
   }
 
   void _onTap(int index) {
-    int cIndex = 0;
-
-    switch (index) {
-      case 0:
-        cIndex = 1;
-      case 1:
-        cIndex = 0;
-      case 2:
-        cIndex = 2;
-      case 3:
-        cIndex = 3;
-      default:
-    }
-
+    currentIndex = index;
     widget.navigationShell.goBranch(
-      cIndex,
+      index,
       initialLocation: true,
     );
-
-    setState(() {
-      currentIndex = index;
-    });
   }
 }

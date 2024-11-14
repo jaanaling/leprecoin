@@ -35,58 +35,43 @@ GoRouter buildGoRouter = GoRouter(
           routes: <RouteBase>[
             GoRoute(
               path: RouteValue.home.path,
-              builder: (context, state) => Container(
-                color: Color(0xFF353535),
-                child: HomeScreen(key: UniqueKey()),
-              ),
+              builder: (context, state) => HomeScreen(),
             ),
           ],
         ),
-         StatefulShellBranch(
+        StatefulShellBranch(
           navigatorKey: _goalsNavigatorKey,
           routes: <RouteBase>[
             GoRoute(
               path: RouteValue.goals.path,
-              builder: (context, state) => Container(
-                color: Color(0xFF353535),
-                child: GoalsScreen(key: UniqueKey()),
-              ),
+              builder: (context, state) => GoalsScreen(),
             ),
           ],
         ),
-         StatefulShellBranch(
+        StatefulShellBranch(
           navigatorKey: _chellengeNavigatorKey,
           routes: <RouteBase>[
             GoRoute(
               path: RouteValue.chellenge.path,
-              builder: (context, state) => Container(
-                color: Color(0xFF353535),
-                child: ChellengeScreen(key: UniqueKey()),
-              ),
+              builder: (context, state) => ChellengeScreen(),
             ),
           ],
         ),
-         StatefulShellBranch(
+        StatefulShellBranch(
           navigatorKey: _tipsNavigatorKey,
           routes: <RouteBase>[
             GoRoute(
               path: RouteValue.tips.path,
-              builder: (context, state) => Container(
-                color: Color(0xFF353535),
-                child: TipsScreen(key: UniqueKey()),
-              ),
+              builder: (context, state) => TipsScreen(),
             ),
           ],
         ),
-         StatefulShellBranch(
+        StatefulShellBranch(
           navigatorKey: _transactionNavigatorKey,
           routes: <RouteBase>[
             GoRoute(
               path: RouteValue.transaction.path,
-              builder: (context, state) => Container(
-                color: Color(0xFF353535),
-                child: TransactionScreen(key: UniqueKey()),
-              ),
+              builder: (context, state) => TransactionScreen(),
             ),
           ],
         ),
@@ -97,7 +82,7 @@ GoRouter buildGoRouter = GoRouter(
       pageBuilder: (context, state, child) {
         return NoTransitionPage(
           child: CupertinoPageScaffold(
-            backgroundColor: CupertinoColors.white,
+            backgroundColor: CupertinoColors.black,
             child: child,
           ),
         );

@@ -26,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
+    startLoading(context);
 
   }
 
@@ -68,27 +69,11 @@ class _SplashScreenState extends State<SplashScreen>
               Stack(
                 alignment: Alignment.center,
                 children: [
-                  Container(
-                    width: 175,
-                    height: 175,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xFFDF3E3E),
-                    ),
-                  ),
-               
+                 
                   AppIcon(asset: IconProvider.splash.buildImageUrl()),
                 ],
               ),
-              Text(
-                'Dynasty Dive',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 29,
-                  fontFamily: 'Stetica',
-                  height: 0,
-                ),
-              ),
+              
             ],
           ),
         ),

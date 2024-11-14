@@ -16,6 +16,10 @@ dependencies:
   get_it: ^7.7.0
   equatable: ^2.0.5
   shared_preferences: ^2.3.1
+  cupertino_icons: ^1.0.8
+  easy_localization: ^3.0.7
+  syncfusion_flutter_charts: ^27.1.58
+
   flutter_localizations:
     sdk: flutter
 
@@ -31,6 +35,9 @@ flutter:
      - assets/
      - assets/images/
      - assets/fonts/
+     - assets/json/
+     - assets/translations/
+
   fonts:
       - family: satoshi
         fonts:

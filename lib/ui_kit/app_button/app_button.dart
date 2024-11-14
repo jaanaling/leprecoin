@@ -1,42 +1,67 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
-  final VoidCallback onPressed;
-  final String title;
-  final double width;
-  const AppButton({super.key, required this.onPressed, required this.title, this.width = 267});
+  final Color color;
+  final Widget widget;
+  final VoidCallback? onPressed;
+  final double radius;
+  final double? width;
+  final bool isSecond;
+
+  const AppButton({
+    super.key,
+    required this.color,
+    required this.widget,
+    this.onPressed,
+    this.radius = 32,
+    this.width,
+    this.isSecond = false,
+  });
+
+  List<Color> generateShades(Color color) {
+    HSLColor hsl = HSLColor.fromColor(color);
+
+    // Создаем 4 оттенка, изменяя светлоту
+    return [
+      hsl.withLightness((hsl.lightness + 0.2).clamp(0.0, 1.0)).toColor(),
+      hsl.withLightness((hsl.lightness + 0.1).clamp(0.0, 1.0)).toColor(),
+      hsl.toColor(),
+      hsl.withLightness((hsl.lightness - 0.1).clamp(0.0, 1.0)).toColor(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
       onPressed: onPressed,
+      padding: EdgeInsets.zero,
       child: Container(
-          width: width,
-          height: 68,
-          decoration: ShapeDecoration(
-            gradient: LinearGradient(
-              begin: Alignment(0.00, -1.00),
-              end: Alignment(0, 1),
-              colors: const [Color(0xFF13C3A2), Color(0xFF0CA58E)],
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            shadows: const [
-              BoxShadow(
-                color: Color(0xFF13C3A2),
-                blurRadius: 4,
-                offset: Offset(0, 1),
-                spreadRadius: 0,
-              )
-            ],
+        width: width == 0 ? null : width ?? double.infinity,
+        decoration: ShapeDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: generateShades(isSecond ? const Color(0xFFEBEBEB) : color),
           ),
-          child: Center(
-              child: Text(
-            title,
-            style: TextStyle(color: Colors.white, fontSize: 24),
-          ))),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              width: 2,
+              strokeAlign: BorderSide.strokeAlignOutside,
+              color:
+                  isSecond ? const Color(0xFFADADAD) : const Color(0xFFFFDD6D),
+            ),
+            borderRadius: BorderRadius.circular(radius),
+          ),
+          shadows: const [
+            BoxShadow(
+              color: Color(0x3F000000),
+              blurRadius: 3.80,
+              offset: Offset(0, 2),
+            )
+          ],
+        ),
+        child: widget,
+      ),
     );
   }
 }
