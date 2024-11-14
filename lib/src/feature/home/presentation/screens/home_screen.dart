@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,8 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isMenuOpen = false;
   int _selectedLanguage = 0;
   int _selectedCurrency = 0;
-
-
 
   List<String> savingsQuotes = [
     "A penny saved is a penny closer to your goal!",
@@ -63,9 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getShered();
     quote = getRandomQuote(savingsQuotes);
- 
-
-    }
+  }
 
   @override
   void dispose() {
@@ -75,7 +72,34 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> getShered() async {
     pref = await SharedPreferences.getInstance();
-       
+
+    switch (context.locale.toString()) {
+      case 'en':
+        _selectedLanguage = 0;
+      case 'fr':
+        _selectedLanguage = 3;
+      case 'de':
+        _selectedLanguage = 2;
+      case 'es':
+        _selectedLanguage = 1;
+      default:
+        _selectedLanguage = 0;
+    }
+
+    switch (pref!.getString("Currency")) {
+      case '\$':
+        _selectedCurrency = 0;
+      case '€':
+        _selectedCurrency = 1;
+      case '£':
+        _selectedCurrency = 2;
+      case '¥':
+        _selectedCurrency = 3;
+      case '\$A':
+        _selectedCurrency = 4;
+      default:
+        _selectedCurrency = 0;
+    }
   }
 
   @override
@@ -124,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontFamily: 'avenir',
                                 fontWeight: FontWeight.w700,
                               ),
-                            ),
+                            ).tr(),
                           ),
                         ),
                       )
@@ -172,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 32, vertical: 8),
                                     child: Text(
-                                      '€ ${pref?.getDouble("balance") ?? 0}',
+                                      '${pref?.getString("Currency") ?? "\$"} ${pref?.getDouble("balance") ?? 0}',
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 29,
@@ -220,6 +244,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
+        Visibility(
+          visible: _isMenuOpen,
+          child: Positioned.fill(
+              child: ColoredBox(color: Color.fromARGB(85, 12, 12, 12))),
+        ),
         Material(
           color: Colors.transparent,
           child: Visibility(
@@ -229,167 +258,182 @@ class _HomeScreenState extends State<HomeScreen> {
                 double menuWidth = constraints.maxWidth * 0.8;
                 double menuHeight = constraints.maxHeight * 0.7;
 
-                return Container(
-                  width: menuWidth,
-                  height: menuHeight,
-                  decoration: ShapeDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment(0.00, -1.00),
-                      end: Alignment(0, 1),
-                      colors: const [
-                        Color(0xFFEFEFEF),
-                        Colors.white,
-                        Color(0xFFEBEBEB),
-                        Color(0xFFE3E3E3)
+                return Dismissible(
+                  key: UniqueKey(), // Уникальный ключ для работы Dismissible
+                  direction: DismissDirection.endToStart, // Свайп влево
+                  onDismissed: (direction) {
+                    setState(() {
+                      _isMenuOpen = false; // Закрыть меню при свайпе
+                    });
+                  },
+                  child: Container(
+                    width: menuWidth,
+                    height: menuHeight,
+                    decoration: ShapeDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment(0.00, -1.00),
+                        end: Alignment(0, 1),
+                        colors: const [
+                          Color(0xFFEFEFEF),
+                          Colors.white,
+                          Color(0xFFEBEBEB),
+                          Color(0xFFE3E3E3)
+                        ],
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(17),
+                          bottomRight: Radius.circular(17),
+                        ),
+                      ),
+                      shadows: const [
+                        BoxShadow(
+                          color: Color(0x3F000000),
+                          blurRadius: 3.80,
+                          offset: Offset(0, 2),
+                          spreadRadius: 0,
+                        ),
+                        BoxShadow(
+                          color: Color.fromARGB(255, 187, 187, 187),
+                          blurRadius: 0,
+                          offset: Offset(0, 2),
+                          spreadRadius: 2,
+                        ),
                       ],
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(17),
-                        bottomRight: Radius.circular(17),
-                      ),
-                    ),
-                    shadows: const [
-                      BoxShadow(
-                        color: Color(0x3F000000),
-                        blurRadius: 3.80,
-                        offset: Offset(0, 2),
-                        spreadRadius: 0,
-                      ),
-                      BoxShadow(
-                        color: Color.fromARGB(255, 187, 187, 187),
-                        blurRadius: 0,
-                        offset: Offset(0, 2),
-                        spreadRadius: 2,
-                      ),
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 20),
-                    child: ListView(
-                      children: [
-                        Text(
-                          'SELECT CURRENCY',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontFamily: 'avenir',
-                            fontWeight: FontWeight.w500,
-                            height: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 20),
+                      child: ListView(
+                        children: [
+                          Text(
+                            'SELECT CURRENCY',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontFamily: 'avenir',
+                              fontWeight: FontWeight.w500,
+                              height: 0,
+                            ),
                           ),
-                        ),
-                        Gap(17),
-                        Container(
-                          width: constraints.maxWidth * 0.6,
-                          decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                width: 1,
-                                strokeAlign: BorderSide.strokeAlignCenter,
+                          Gap(17),
+                          Container(
+                            width: constraints.maxWidth * 0.6,
+                            decoration: ShapeDecoration(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  strokeAlign: BorderSide.strokeAlignCenter,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Gap(17),
-                        BurgerTile2(
-                          text: '\$ USD',
-                          isActive: true,
-                          onPressed: () => setState(() {
-                            _selectedCurrency = 0;
-                          }),
-
-                        ),
-                        Gap(9),
-                        BurgerTile2(
-                          text: '€ EUR',
-                          isActive: true,
-                          onPressed: () => setState(() {
-                            _selectedCurrency = 1;
-                          }),
-                        ),
-                        Gap(9),
-                        BurgerTile2(
-                          text: '£ GBP',
-                          isActive: true,
-                          onPressed: () => setState(() {
-                            _selectedCurrency = 2;
-                          }),
-                        ),
-                        Gap(9),
-                        BurgerTile2(
-                          text: '¥ JPY',
-                          isActive: true,
-                          onPressed: () => setState(() {
-                            _selectedCurrency = 3;
-                          }),
-                        ),
-                        Gap(9),
-                        BurgerTile2(
-                          text: '\$ AUD',
-                          isActive: true,
-                          onPressed: () => setState(() {
-                            _selectedCurrency = 4;
-                          }),
-                        ),
-                        Gap(41),
-                        Text(
-                          'SELECT LANGUAGE',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontFamily: 'avenir',
-                            fontWeight: FontWeight.w500,
-                            height: 0,
+                          Gap(17),
+                          BurgerTile2(
+                            text: '\$ USD',
+                            isActive: _selectedCurrency == 0,
+                            onPressed: () => setState(() {
+                              _selectedCurrency = 0;
+                              pref?.setString("Currency", "\$");
+                            }),
                           ),
-                        ),
-                        Gap(17),
-                        Container(
-                          width: constraints.maxWidth * 0.6,
-                          decoration: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                width: 1,
-                                strokeAlign: BorderSide.strokeAlignCenter,
+                          Gap(9),
+                          BurgerTile2(
+                            text: '€ EUR',
+                            isActive: _selectedCurrency == 1,
+                            onPressed: () => setState(() {
+                              _selectedCurrency = 1;
+                              pref?.setString("Currency", "€");
+                            }),
+                          ),
+                          Gap(9),
+                          BurgerTile2(
+                            text: '£ GBP',
+                            isActive: _selectedCurrency == 2,
+                            onPressed: () => setState(() {
+                              _selectedCurrency = 2;
+                              pref?.setString("Currency", "£");
+                            }),
+                          ),
+                          Gap(9),
+                          BurgerTile2(
+                            text: '¥ JPY',
+                            isActive: _selectedCurrency == 3,
+                            onPressed: () => setState(() {
+                              _selectedCurrency = 3;
+                              pref?.setString("Currency", "¥");
+                            }),
+                          ),
+                          Gap(9),
+                          BurgerTile2(
+                            text: '\$ AUD',
+                            isActive: _selectedCurrency == 4,
+                            onPressed: () => setState(() {
+                              _selectedCurrency = 4;
+                              pref?.setString("Currency", "\$A");
+                            }),
+                          ),
+                          Gap(41),
+                          Text(
+                            'SELECT LANGUAGE',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontFamily: 'avenir',
+                              fontWeight: FontWeight.w500,
+                              height: 0,
+                            ),
+                          ),
+                          Gap(17),
+                          Container(
+                            width: constraints.maxWidth * 0.6,
+                            decoration: ShapeDecoration(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 1,
+                                  strokeAlign: BorderSide.strokeAlignCenter,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Gap(17),
-                        BurgerTile(
-                          text: 'English',
-                          isActive: true,
-                          onPressed: () => setState(() {
-                            _selectedLanguage = 0;
-                          }),
-                        ),
-                        Gap(17),
-                        BurgerTile(
-                          text: 'Español',
-                          isActive: true,
-                          onPressed: () => setState(() {
-                            _selectedLanguage = 1;
-                          }),
-
-
-                        ),
-                        Gap(17),
-                        BurgerTile(
-                          text: 'Deutsch',
-                          isActive: true,
-                          onPressed: () => setState(() {
-                            _selectedLanguage = 2;
-                          }),
-                        ),
-                        Gap(17),
-                        BurgerTile(
-                          text: 'Français',
-                          isActive: true,
-                          onPressed: () => setState(() {
-                            _selectedLanguage = 3;
-                          }),
-                        ),
-                      ],
+                          Gap(17),
+                          BurgerTile(
+                            text: 'English',
+                            isActive: _selectedLanguage == 0,
+                            onPressed: () => setState(() {
+                              _selectedLanguage = 0;
+                              context.setLocale(Locale('en'));
+                            }),
+                          ),
+                          Gap(17),
+                          BurgerTile(
+                            text: 'Español',
+                            isActive: _selectedLanguage == 1,
+                            onPressed: () => setState(() {
+                              _selectedLanguage = 1;
+                              context.setLocale(Locale('es'));
+                            }),
+                          ),
+                          Gap(17),
+                          BurgerTile(
+                            text: 'Deutsch',
+                            isActive: _selectedLanguage == 2,
+                            onPressed: () => setState(() {
+                              _selectedLanguage = 2;
+                              context.setLocale(Locale('de'));
+                            }),
+                          ),
+                          Gap(17),
+                          BurgerTile(
+                            text: 'Français',
+                            isActive: _selectedLanguage == 3,
+                            onPressed: () => setState(() {
+                              _selectedLanguage = 3;
+                              context.setLocale(Locale('fr'));
+                            }),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -478,47 +522,50 @@ class BurgerTile2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          text,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontFamily: 'avenir',
-            fontWeight: FontWeight.w700,
-            height: 0,
-          ),
-        ),
-        Gap(16),
-        Container(
-          width: 34,
-          height: 34,
-          decoration: ShapeDecoration(
-            color: Colors.white,
-            shape: OvalBorder(
-              side: BorderSide(width: 1, color: Color(0xFFC0C0C0)),
+    return GestureDetector(
+      onTap: onPressed,
+      child: Row(
+        children: [
+          Text(
+            text,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              fontFamily: 'avenir',
+              fontWeight: FontWeight.w700,
+              height: 0,
             ),
           ),
-          child: isActive
-              ? Container(
-                  width: 30,
-                  height: 30,
-                  margin: EdgeInsets.all(4),
-                  decoration: ShapeDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment(0.00, -1.00),
-                      end: Alignment(0, 1),
-                      colors: const [Color(0xFF21EE21), Color(0xFF0BB10B)],
+          Gap(16),
+          Container(
+            width: 34,
+            height: 34,
+            decoration: ShapeDecoration(
+              color: Colors.white,
+              shape: OvalBorder(
+                side: BorderSide(width: 1, color: Color(0xFFC0C0C0)),
+              ),
+            ),
+            child: isActive
+                ? Container(
+                    width: 30,
+                    height: 30,
+                    margin: EdgeInsets.all(4),
+                    decoration: ShapeDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment(0.00, -1.00),
+                        end: Alignment(0, 1),
+                        colors: const [Color(0xFF21EE21), Color(0xFF0BB10B)],
+                      ),
+                      shape: OvalBorder(
+                        side: BorderSide(width: 1, color: Color(0xFFC0C0C0)),
+                      ),
                     ),
-                    shape: OvalBorder(
-                      side: BorderSide(width: 1, color: Color(0xFFC0C0C0)),
-                    ),
-                  ),
-                )
-              : null,
-        ),
-      ],
+                  )
+                : null,
+          ),
+        ],
+      ),
     );
   }
 }
