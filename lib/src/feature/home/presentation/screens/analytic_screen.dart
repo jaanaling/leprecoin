@@ -52,8 +52,7 @@ class _AnalyticScreenState extends State<AnalyticScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               AppButton(
-                color: Colors.purple,
-                isSecond: !isIncome,
+                color:!isIncome? ButtonColors.white: ButtonColors.purple,
                 width: MediaQuery.of(context).size.width * 0.4,
                 widget: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -76,8 +75,7 @@ class _AnalyticScreenState extends State<AnalyticScreen> {
               Gap(10),
               AppButton(
                 width: MediaQuery.of(context).size.width * 0.4,
-                color: Colors.purple,
-                isSecond: isIncome,
+                color:isIncome? ButtonColors.white: ButtonColors.purple,
                 widget: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(
