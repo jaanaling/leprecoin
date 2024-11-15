@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,8 +12,32 @@ import '../../../../../ui_kit/app_button/app_button.dart';
 import '../../bloc/goals_bloc.dart';
 import '../../model/goals.dart';
 
-class GoalsScreen extends StatelessWidget {
+class GoalsScreen extends StatefulWidget {
   const GoalsScreen({super.key});
+
+  @override
+  State<GoalsScreen> createState() => _GoalsScreenState();
+}
+
+class _GoalsScreenState extends State<GoalsScreen> {
+  SharedPreferences? pref;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getShered();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  Future<void> getShered() async {
+    pref = await SharedPreferences.getInstance();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +58,13 @@ class GoalsScreen extends StatelessWidget {
           return Stack(
             alignment: Alignment.topCenter,
             children: [
-              SafeArea(
-                child: SingleChildScrollView(
+              SingleChildScrollView(
+                padding: EdgeInsets.fromLTRB(16, 35, 16, 455),
+                child: SafeArea(
                   child: Column(
                     children: [
                       if (list.isEmpty)
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.only(top: 25),
                           child: Text(
                             'No goals here!',
@@ -49,7 +75,7 @@ class GoalsScreen extends StatelessWidget {
                               height: 0,
                               fontFamily: 'avenir',
                             ),
-                          ),
+                          ).tr(),
                         )
                       else
                         ListView.separated(
@@ -62,6 +88,175 @@ class GoalsScreen extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(9, 0, 9, 13),
                                 child: AppButton(
+                                  onPressed: () {
+                                    double nowsum = list[index].nowsum;
+                                    double finalsum = list[index].finalsum;
+                                    double progress = nowsum / finalsum;
+                                    double balance =
+                                        pref?.getDouble("balance") ?? 0;
+
+                                    showCupertinoDialog(
+                                      context: context,
+                                      builder: (BuildContext childContext) {
+                                        double localNowSum = nowsum;
+                                        double localbalance = balance;
+                                        return StatefulBuilder(
+                                          builder: (BuildContext context,
+                                              StateSetter setState) {
+                                            return SizedBox(
+                                              child: CupertinoAlertDialog(
+                                                title: const Text(
+                                                  "CHANGE GOAL STATUS",
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 18,
+                                                    fontFamily: 'avenir',
+                                                    fontWeight: FontWeight.bold,
+                                                    height: 0,
+                                                  ),
+                                                ).tr(),
+                                                content: SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  child: Column(
+                                                    children: [
+                                                      const Gap(17),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                           Text(
+                                                        "${"Balance:".tr()} ${localbalance.toStringAsFixed(2)}${pref?.getString("Currency") ?? "\$"}",
+                                                        style: TextStyle(
+                                                          color:
+                                                              Colors.black,
+                                                          fontSize: 12,
+                                                          fontFamily:
+                                                              'avenir',
+                                                          fontWeight:
+                                                              FontWeight
+                                                                  .w400,
+                                                          height: 0,
+                                                        ),
+                                                      ),
+                                                          Text(
+                                                            "${"Final sum:".tr()} $finalsum${pref?.getString("Currency") ?? "\$"}",
+                                                            style:
+                                                                TextStyle(
+                                                              color: Colors
+                                                                  .black,
+                                                              fontSize: 12,
+                                                              fontFamily:
+                                                                  'avenir',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              height: 0,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            "${"Current sum:".tr()} ${localNowSum.toStringAsFixed(2)}${pref?.getString("Currency") ?? "\$"}",
+                                                            style:
+                                                                TextStyle(
+                                                              color: Colors
+                                                                  .black,
+                                                              fontSize: 12,
+                                                              fontFamily:
+                                                                  'avenir',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              height: 0,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const Gap(17),
+                                                      Text(
+                                                        "${"Goal Progress:".tr()} ${(localNowSum / finalsum * 100).toStringAsFixed(2)}%",
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 12,
+                                                          fontFamily: 'avenir',
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          height: 0,
+                                                        ),
+                                                      ),
+                                                      const Gap(17),
+                                                      CupertinoSlider(
+                                                        max: finalsum,
+                                                        value: localNowSum,
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            localNowSum = value;
+                                                            localbalance = balance +
+                                                                (nowsum -
+                                                                    localNowSum);
+                                                          });
+                                                        },
+                                                        activeColor:
+                                                            Color(0xFF8800FF),
+                                                        thumbColor:
+                                                            Color(0xFF8800FF),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                actions: [
+                                                  CupertinoDialogAction(
+                                                    onPressed: () {
+                                                      Navigator.of(childContext)
+                                                          .pop();
+                                                    },
+                                                    child: const Text(
+                                                      "cancel",
+                                                      style: TextStyle(
+                                                        color: CupertinoColors
+                                                            .destructiveRed,
+                                                        fontSize: 18,
+                                                        fontFamily: 'avenir',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        height: 0,
+                                                      ),
+                                                    ).tr(),
+                                                  ),
+                                                  CupertinoDialogAction(
+                                                    onPressed: () {
+                                                      context.read<GoalsBloc>()
+                                                        ..add(UpdateGoals(
+                                                            list[index].copyWith(
+                                                                nowsum:
+                                                                    localNowSum),
+                                                            nowsum -
+                                                                localNowSum));
+                                                      Navigator.of(childContext)
+                                                          .pop();
+                                                    },
+                                                    child: const Text(
+                                                      "Add",
+                                                      style: TextStyle(
+                                                        color: CupertinoColors
+                                                            .activeBlue,
+                                                        fontSize: 18,
+                                                        fontFamily: 'avenir',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        height: 0,
+                                                      ),
+                                                    ).tr(),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                    );
+                                  },
                                   color: ButtonColors.yellow,
                                   widget: Padding(
                                     padding: const EdgeInsets.fromLTRB(
@@ -88,7 +283,7 @@ class GoalsScreen extends StatelessWidget {
                                         Align(
                                           alignment: Alignment.topRight,
                                           child: Text(
-                                            '\$${list[index].nowsum}/\$${list[index].finalsum}',
+                                            '${pref?.getString("Currency") ?? "\$"}${list[index].nowsum.toStringAsFixed(2)}/${pref?.getString("Currency") ?? "\$"}${list[index].finalsum.toStringAsFixed(2)}',
                                             textAlign: TextAlign.right,
                                             style: const TextStyle(
                                                 color: Colors.black,
@@ -181,7 +376,7 @@ class GoalsScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               height: 0,
                             ),
-                          ),
+                          ).tr(),
                           content: Column(
                             children: [
                               const Gap(17),
@@ -194,11 +389,11 @@ class GoalsScreen extends StatelessWidget {
                                   fontWeight: FontWeight.w500,
                                   height: 0,
                                 ),
-                              ),
+                              ).tr(),
                               const Gap(17),
                               CupertinoTextField(
                                 controller: _goalNameController,
-                                placeholder: "Enter goal name",
+                                placeholder: "Enter goal name".tr(),
                                 textAlignVertical: TextAlignVertical.center,
                                 style: const TextStyle(
                                   color: Colors.black,
@@ -218,11 +413,11 @@ class GoalsScreen extends StatelessWidget {
                                   fontWeight: FontWeight.w500,
                                   height: 0,
                                 ),
-                              ),
+                              ).tr(),
                               const Gap(17),
                               CupertinoTextField(
                                 controller: _goalSumController,
-                                placeholder: "Enter goal amount",
+                                placeholder: "Enter goal amount".tr(),
                                 keyboardType: TextInputType.number,
                                 textAlignVertical: TextAlignVertical.center,
                                 style: const TextStyle(
@@ -241,7 +436,7 @@ class GoalsScreen extends StatelessWidget {
                                 Navigator.of(childContext).pop();
                               },
                               child: const Text(
-                                "Cancel",
+                                "cancel",
                                 style: TextStyle(
                                   color: CupertinoColors.destructiveRed,
                                   fontSize: 18,
@@ -249,7 +444,7 @@ class GoalsScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   height: 0,
                                 ),
-                              ),
+                              ).tr(),
                             ),
                             CupertinoDialogAction(
                               onPressed: () {
@@ -271,14 +466,14 @@ class GoalsScreen extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   height: 0,
                                 ),
-                              ),
+                              ).tr(),
                             ),
                           ],
                         );
                       },
                     );
                   },
-                  widget: const Padding(
+                  widget: Padding(
                     padding: EdgeInsets.only(
                       top: 6,
                       bottom: 12,
@@ -288,7 +483,7 @@ class GoalsScreen extends StatelessWidget {
                     child: Text(
                       '+ add new goal',
                       style: TextStyle(fontSize: 21, color: Colors.white),
-                    ),
+                    ).tr(),
                   ),
                 ),
                 width: 195,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -18,27 +19,27 @@ class _AnalyticScreenState extends State<AnalyticScreen> {
 
   // Задаём цвета для каждой категории
   final Map<String, Color> categoryColors = {
-    'Food & Dining': Colors.orange,
-    'Transportation': Colors.blue,
-    'Entertainment': Colors.purple,
-    'Utilities': Colors.brown,
-    'Shopping': Colors.pink,
-    'Health & Wellness': Colors.teal,
-    'Education': Colors.indigo,
-    'Travel': Colors.cyan,
-    'Personal Care': Colors.green,
-    'Gifts & Donations': Colors.red,
-    'Housing': Colors.amber,
-    'Insurance': Colors.yellow,
-    'Subscriptions': Colors.lime,
-    'Pets': Colors.deepOrange,
-    'Salary': Colors.lightGreen,
-    'Investments': Colors.lightBlue,
-    'Business Income': Colors.deepPurple,
-    'Freelance': Colors.grey,
-    'Gifts': Colors.redAccent,
-    'Rent Income': Colors.blueGrey,
-    'Other Income': Colors.pink,
+    'Food & Dining'.tr(): Colors.orange,
+    'Transportation'.tr(): Colors.blue,
+    'Entertainment'.tr(): Colors.purple,
+    'Utilities'.tr(): Colors.brown,
+    'Shopping'.tr(): Colors.pink,
+    'Health & Wellness'.tr(): Colors.teal,
+    'Education'.tr(): Colors.indigo,
+    'Travel'.tr(): Colors.cyan,
+    'Personal Care'.tr(): Colors.green,
+    'Gifts & Donations'.tr(): Colors.red,
+    'Housing'.tr(): Colors.amber,
+    'Insurance'.tr(): Colors.yellow,
+    'Subscriptions'.tr(): Colors.lime,
+    'Pets'.tr(): Colors.deepOrange,
+    'Salary'.tr(): Colors.lightGreen,
+    'Investments'.tr(): Colors.lightBlue,
+    'Business Income'.tr(): Colors.deepPurple,
+    'Freelance'.tr(): Colors.grey,
+    'Gifts'.tr(): Colors.redAccent,
+    'Rent Income'.tr(): Colors.blueGrey,
+    'Other Income'.tr(): Colors.pink,
   };
 
   @override
@@ -66,7 +67,7 @@ class _AnalyticScreenState extends State<AnalyticScreen> {
                       height: 0,
                       fontFamily: 'satoshi',
                     ),
-                  ),
+                  ).tr(),
                 ),
                 onPressed: () => setState(() {
                   isIncome = false;
@@ -88,7 +89,7 @@ class _AnalyticScreenState extends State<AnalyticScreen> {
                       height: 0,
                       fontFamily: 'satoshi',
                     ),
-                  ),
+                  ).tr(),
                 ),
                 onPressed: () => setState(() {
                   isIncome = true;
@@ -126,7 +127,7 @@ class _AnalyticScreenState extends State<AnalyticScreen> {
                   height: MediaQuery.of(context).size.height * 0.7,
                   child: SfCircularChart(
                     title: ChartTitle(
-                      text: 'Transaction\nBreakdown',
+                      text: 'Transaction\nBreakdown'.tr(),
                       textStyle: TextStyle(
                         color: Colors.white,
                         fontSize: 26,
@@ -153,7 +154,7 @@ class _AnalyticScreenState extends State<AnalyticScreen> {
                                 fontWeight: FontWeight.w700,
                                 height: 0,
                               ),
-                            ),
+                            ).tr(),
                           ],
                         ),
                       ),
@@ -164,10 +165,10 @@ class _AnalyticScreenState extends State<AnalyticScreen> {
                     series: <CircularSeries>[
                       DoughnutSeries<Transaction, String>(
                         dataSource: groupedData,
-                        xValueMapper: (Transaction data, _) => data.type,
+                        xValueMapper: (Transaction data, _) => data.type.tr(),
                         yValueMapper: (Transaction data, _) => data.sum,
                         dataLabelMapper: (Transaction data, _) =>
-                            '${data.type}: ${data.sum}',
+                            '${data.type.tr()}: ${data.sum}',
                         dataLabelSettings: DataLabelSettings(
                           isVisible: true,
                           textStyle: TextStyle(
@@ -178,7 +179,7 @@ class _AnalyticScreenState extends State<AnalyticScreen> {
                           ),
                         ),
                         pointColorMapper: (Transaction data, _) =>
-                            categoryColors[data.type] ?? Colors.grey,
+                            categoryColors[data.type.tr()] ?? Colors.grey,
                       )
                     ],
                   ),

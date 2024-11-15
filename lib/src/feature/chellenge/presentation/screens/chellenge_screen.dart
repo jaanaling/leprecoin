@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -24,9 +25,9 @@ class ChellengeScreen extends StatelessWidget {
               separatorBuilder: (context, index) => Gap(22),
               itemBuilder: (context, index) {
                 final String title =
-                    state.challenge[index].challenge.split(": ")[0];
+                    state.challenge[index].challenge.tr().split(": ")[0];
                 final String description =
-                    state.challenge[index].challenge.split(": ")[1];
+                    state.challenge[index].challenge.tr().split(": ")[1];
 
                 return AppButton(
                     color: ButtonColors.green,
@@ -68,7 +69,7 @@ class ChellengeScreen extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               height: 0,
                             ),
-                          ),
+                          ).tr(),
                           Gap(22),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -86,10 +87,10 @@ class ChellengeScreen extends StatelessWidget {
                                             state.challenge[index]));
                                   },
                                   widget: Padding(
-                                     padding: const EdgeInsets.symmetric(
-                                      horizontal: 14, vertical: 7),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 14, vertical: 7),
                                     child: Text(
-                                      'cansel',
+                                      'cancel',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.white,
@@ -98,7 +99,7 @@ class ChellengeScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w400,
                                         height: 0,
                                       ),
-                                    ),
+                                    ).tr(),
                                   ),
                                 ),
                               Gap(16),
@@ -138,7 +139,7 @@ class ChellengeScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w400,
                                       height: 0,
                                     ),
-                                  ),
+                                  ).tr(),
                                 ),
                               ),
                             ],

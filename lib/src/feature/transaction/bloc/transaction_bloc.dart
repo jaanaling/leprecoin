@@ -37,16 +37,15 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   ) async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final balance = prefs.getDouble('balance');
+      final balance = prefs.getDouble('balance') ?? 0;
       final oldTransaction = (state as TransactionLoaded)
           .transaction
           .firstWhere((element) => element.id == event.transaction.id);
       await prefs.setDouble(
           'balance',
-          balance ??
-              0 +
-                  (oldTransaction.isIncome ? 1 : -1) *
-                      (event.transaction.sum - oldTransaction.sum));
+          balance +
+              (oldTransaction.isIncome ? 1 : -1) *
+                  (event.transaction.sum - oldTransaction.sum));
 
       await _repository.update(event.transaction);
       add(LoadTransaction());
@@ -61,14 +60,12 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   ) async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final balance = prefs.getDouble('balance');
+      final balance = prefs.getDouble('balance') ?? 0;
 
       await prefs.setDouble(
           'balance',
-          balance ??
-              0 +
-                  (event.transaction.isIncome ? 1 : -1) *
-                      event.transaction.sum);
+          balance +
+              (event.transaction.isIncome ? 1 : -1) * event.transaction.sum);
       await _repository.save(event.transaction);
       add(LoadTransaction());
     } catch (e) {
@@ -82,14 +79,12 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   ) async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final balance = prefs.getDouble('balance');
+      final balance = prefs.getDouble('balance') ?? 0;
 
       await prefs.setDouble(
           'balance',
-          balance ??
-              0 -
-                  (event.transaction.isIncome ? 1 : -1) *
-                      event.transaction.sum);
+          balance -
+              (event.transaction.isIncome ? 1 : -1) * event.transaction.sum);
 
       await _repository.remove(event.transaction);
       add(LoadTransaction());

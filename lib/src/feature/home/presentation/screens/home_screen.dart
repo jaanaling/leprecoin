@@ -128,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Positioned(
-                        top: 60,
+                        top: 180,
                         right: 0,
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.5,
@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontWeight: FontWeight.w700,
                             height: 0,
                           ),
-                        ),
+                        ).tr(),
                         Gap(3),
                         BlocBuilder<GoalsBloc, GoalsState>(
                           builder: (context, state) {
@@ -197,14 +197,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                   widget: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 32, vertical: 8),
-                                    child: Text(
-                                      '${pref?.getString("Currency") ?? "\$"} ${pref?.getDouble("balance") ?? 0}',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 29,
-                                        fontFamily: 'avenir',
-                                        fontWeight: FontWeight.w700,
-                                        height: 0,
+                                    child: SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.4,
+                                      child: Expanded(
+                                        child: Text(
+                                          '${pref?.getString("Currency") ?? "\$"} ${pref?.getDouble("balance")?.ceilToDouble() ?? 0}',
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 29,
+                                            fontFamily: 'avenir',
+                                            fontWeight: FontWeight.w700,
+                                            height: 0,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -216,12 +222,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         Gap(11),
                         CupertinoButton(
                           padding: EdgeInsets.zero,
-                          onPressed: () {context.push("${RouteValue.home.path}/${RouteValue.analytic.path}");},
+                          onPressed: () {
+                            context.push(
+                                "${RouteValue.home.path}/${RouteValue.analytic.path}");
+                          },
                           child: Container(
                             width: 119,
                             height: 119,
                             decoration: ShapeDecoration(
-                              color: Colors.black.withOpacity(0.4099999964237213),
+                              color:
+                                  Colors.black.withOpacity(0.4099999964237213),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(24),
                               ),
@@ -253,7 +263,15 @@ class _HomeScreenState extends State<HomeScreen> {
         Visibility(
           visible: _isMenuOpen,
           child: Positioned.fill(
-              child: ColoredBox(color: Color.fromARGB(85, 12, 12, 12))),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _isMenuOpen = false; // Закрыть меню при нажатии вне
+                });
+              },
+              child: ColoredBox(color: Color.fromARGB(85, 12, 12, 12)),
+            ),
+          ),
         ),
         Material(
           color: Colors.transparent,
@@ -321,7 +339,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontWeight: FontWeight.w500,
                               height: 0,
                             ),
-                          ),
+                          ).tr(),
                           Gap(17),
                           Container(
                             width: constraints.maxWidth * 0.6,
@@ -389,7 +407,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontWeight: FontWeight.w500,
                               height: 0,
                             ),
-                          ),
+                          ).tr(),
                           Gap(17),
                           Container(
                             width: constraints.maxWidth * 0.6,

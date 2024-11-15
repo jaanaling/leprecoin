@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,7 +42,7 @@ class _TipsScreenState extends State<TipsScreen> {
                           height: 0,
                           fontFamily: 'satoshi',
                         ),
-                      ),
+                      ).tr(),
                     ),
                     onPressed: () {
                       setState(() {
@@ -65,7 +66,7 @@ class _TipsScreenState extends State<TipsScreen> {
                           height: 0,
                           fontFamily: 'satoshi',
                         ),
-                      ),
+                      ).tr(),
                     ),
                     onPressed: () {
                       setState(() {
@@ -118,7 +119,7 @@ class _TipsScreenState extends State<TipsScreen> {
                                   height: 0,
                                   fontFamily: 'satoshi',
                                 ),
-                              ),
+                              ).tr(),
                             ),
                             radius: 17,
                           ),

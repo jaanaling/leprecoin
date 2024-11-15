@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:leprecoin/src/core/dependency_injection.dart';
+import 'package:leprecoin/src/core/utils/log.dart';
 import 'package:leprecoin/src/feature/goals/model/goals.dart';
 import 'package:leprecoin/src/feature/goals/repository/repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,8 +38,11 @@ class GoalsBloc extends Bloc<GoalsEvent, GoalsState> {
   ) async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final balance = prefs.getDouble('balance');
-      prefs.setDouble('balance', balance ?? 0 - event.addSum);
+      final balance = prefs.getDouble('balance') ?? 0;
+      logger.e(balance);
+      logger.e(event.addSum);
+      logger.e(balance + event.addSum);
+      logger.e(await prefs.setDouble('balance', balance + event.addSum));
 
       await _repository.update(event.goals);
       add(LoadGoals());
