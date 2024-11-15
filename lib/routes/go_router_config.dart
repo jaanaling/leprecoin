@@ -8,6 +8,7 @@ import 'package:leprecoin/src/feature/home/presentation/screens/analytic_screen.
 import 'package:leprecoin/src/feature/home/presentation/screens/home_screen.dart';
 import 'package:leprecoin/src/feature/splash/presentation/screens/splash_screen.dart';
 import 'package:leprecoin/src/feature/tips/presentation/screens/tips_screen.dart';
+import 'package:leprecoin/src/feature/transaction/presentation/screens/add_transaction_screen.dart';
 import 'package:leprecoin/src/feature/transaction/presentation/screens/transaction_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -80,6 +81,13 @@ GoRouter buildGoRouter = GoRouter(
             GoRoute(
               path: RouteValue.transaction.path,
               builder: (context, state) => TransactionScreen(),
+              routes: [
+                GoRoute(
+                  path: RouteValue.addTransaction.path,
+                  builder: (context, state) => AddTransactionScreen(),
+
+                )
+              ]
             ),
           ],
         ),

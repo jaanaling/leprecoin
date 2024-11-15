@@ -64,7 +64,7 @@ class _AnalyticScreenState extends State<AnalyticScreen> {
                       color: isIncome ? Colors.white : Colors.black,
                       fontWeight: FontWeight.w500,
                       fontSize: 18,
-                      height: 0,
+                      
                       fontFamily: 'satoshi',
                     ),
                   ).tr(),
@@ -86,7 +86,7 @@ class _AnalyticScreenState extends State<AnalyticScreen> {
                       color: !isIncome ? Colors.white : Colors.black,
                       fontWeight: FontWeight.w500,
                       fontSize: 18,
-                      height: 0,
+                      
                       fontFamily: 'satoshi',
                     ),
                   ).tr(),
@@ -133,7 +133,7 @@ class _AnalyticScreenState extends State<AnalyticScreen> {
                         fontSize: 26,
                         fontFamily: 'avenir',
                         fontWeight: FontWeight.w700,
-                        height: 0,
+                        
                       ),
                     ),
                     legend: Legend(
@@ -152,7 +152,7 @@ class _AnalyticScreenState extends State<AnalyticScreen> {
                                 fontSize: 21,
                                 fontFamily: 'avenir',
                                 fontWeight: FontWeight.w700,
-                                height: 0,
+                                
                               ),
                             ).tr(),
                           ],

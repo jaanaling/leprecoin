@@ -20,6 +20,9 @@ enum RouteValue {
   transaction(
     path: '/transaction',
   ),
+  addTransaction(
+    path: 'addTransaction',
+  ),
   unknown(
     path: '',
   );

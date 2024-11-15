@@ -43,7 +43,7 @@ class ChellengeScreen extends StatelessWidget {
                               fontSize: 28,
                               fontFamily: 'avenir',
                               fontWeight: FontWeight.w700,
-                              height: 0,
+                              
                             ),
                           ),
                           Gap(8),
@@ -54,7 +54,7 @@ class ChellengeScreen extends StatelessWidget {
                               fontSize: 21,
                               fontFamily: 'avenir',
                               fontWeight: FontWeight.w500,
-                              height: 0,
+                              
                             ),
                           ),
                           Gap(4),
@@ -67,7 +67,7 @@ class ChellengeScreen extends StatelessWidget {
                               fontSize: 21,
                               fontFamily: 'satoshi',
                               fontWeight: FontWeight.w400,
-                              height: 0,
+                              
                             ),
                           ).tr(),
                           Gap(22),
@@ -97,7 +97,7 @@ class ChellengeScreen extends StatelessWidget {
                                         fontSize: 18,
                                         fontFamily: 'satoshi',
                                         fontWeight: FontWeight.w400,
-                                        height: 0,
+                                        
                                       ),
                                     ).tr(),
                                   ),
@@ -137,7 +137,7 @@ class ChellengeScreen extends StatelessWidget {
                                       fontSize: 18,
                                       fontFamily: 'satoshi',
                                       fontWeight: FontWeight.w400,
-                                      height: 0,
+                                      
                                     ),
                                   ).tr(),
                                 ),

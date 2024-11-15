@@ -72,7 +72,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 30,
-                              height: 0,
+                              
                               fontFamily: 'avenir',
                             ),
                           ).tr(),
@@ -275,7 +275,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 21,
-                                            height: 0,
+                                            
                                             fontFamily: 'avenir',
                                           ),
                                         ),
@@ -374,7 +374,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                               fontSize: 18,
                               fontFamily: 'avenir',
                               fontWeight: FontWeight.bold,
-                              height: 0,
+                              
                             ),
                           ).tr(),
                           content: Column(
@@ -387,7 +387,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                                   fontSize: 18,
                                   fontFamily: 'avenir',
                                   fontWeight: FontWeight.w500,
-                                  height: 0,
+                                  
                                 ),
                               ).tr(),
                               const Gap(17),
@@ -399,7 +399,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 21,
-                                  height: 0,
+                                  
                                   fontFamily: 'avenir',
                                 ),
                               ),
@@ -411,7 +411,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                                   fontSize: 18,
                                   fontFamily: 'avenir',
                                   fontWeight: FontWeight.w500,
-                                  height: 0,
                                 ),
                               ).tr(),
                               const Gap(17),
@@ -424,7 +423,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 21,
-                                  height: 0,
                                   fontFamily: 'avenir',
                                 ),
                               ),
@@ -442,7 +440,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                                   fontSize: 18,
                                   fontFamily: 'avenir',
                                   fontWeight: FontWeight.bold,
-                                  height: 0,
+                                  
                                 ),
                               ).tr(),
                             ),
@@ -464,7 +462,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                                   fontSize: 18,
                                   fontFamily: 'avenir',
                                   fontWeight: FontWeight.bold,
-                                  height: 0,
+                                  
                                 ),
                               ).tr(),
                             ),

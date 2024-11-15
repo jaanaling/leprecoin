@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 21,
                             fontFamily: 'avenir',
                             fontWeight: FontWeight.w700,
-                            height: 0,
+                            
                           ),
                         ).tr(),
                         Gap(3),
@@ -197,6 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   widget: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 32, vertical: 8),
+<<<<<<< Updated upstream
                                     child: SizedBox(
                                       width: MediaQuery.of(context).size.width *
                                           0.4,
@@ -211,6 +212,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                             height: 0,
                                           ),
                                         ),
+=======
+                                    child: Text(
+                                      '${pref?.getString("Currency") ?? "\$"} ${pref?.getDouble("balance") ?? 0}',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 29,
+                                        fontFamily: 'avenir',
+                                        fontWeight: FontWeight.w700,
+                                        
+>>>>>>> Stashed changes
                                       ),
                                     ),
                                   ),
@@ -337,7 +348,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 18,
                               fontFamily: 'avenir',
                               fontWeight: FontWeight.w500,
-                              height: 0,
+                              
                             ),
                           ).tr(),
                           Gap(17),
@@ -405,7 +416,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 18,
                               fontFamily: 'avenir',
                               fontWeight: FontWeight.w500,
-                              height: 0,
+                              
                             ),
                           ).tr(),
                           Gap(17),
@@ -523,7 +534,7 @@ class BurgerTile extends StatelessWidget {
               fontSize: 19,
               fontFamily: 'avenir',
               fontWeight: FontWeight.w500,
-              height: 0,
+              
             ),
           ),
         ],
@@ -557,7 +568,7 @@ class BurgerTile2 extends StatelessWidget {
               fontSize: 20,
               fontFamily: 'avenir',
               fontWeight: FontWeight.w700,
-              height: 0,
+              
             ),
           ),
           Gap(16),

@@ -39,7 +39,7 @@ class _TipsScreenState extends State<TipsScreen> {
                           color: isFavorite ? Colors.white : Colors.black,
                           fontWeight: FontWeight.w500,
                           fontSize: 18,
-                          height: 0,
+                          
                           fontFamily: 'satoshi',
                         ),
                       ).tr(),
@@ -63,7 +63,7 @@ class _TipsScreenState extends State<TipsScreen> {
                           color: !isFavorite ? Colors.white : Colors.black,
                           fontWeight: FontWeight.w500,
                           fontSize: 18,
-                          height: 0,
+                          
                           fontFamily: 'satoshi',
                         ),
                       ).tr(),
@@ -116,7 +116,7 @@ class _TipsScreenState extends State<TipsScreen> {
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 18,
-                                  height: 0,
+                                  
                                   fontFamily: 'satoshi',
                                 ),
                               ).tr(),
