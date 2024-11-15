@@ -20,8 +20,9 @@ class UpdateTransaction extends TransactionEvent {
 
 class SaveTransaction extends TransactionEvent {
   final Transaction transaction;
+  final BuildContext context;
 
-  const SaveTransaction(this.transaction);
+  const SaveTransaction(this.transaction, this.context);
 
   @override
   List<Object> get props => [transaction];

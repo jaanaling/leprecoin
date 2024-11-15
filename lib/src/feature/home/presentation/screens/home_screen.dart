@@ -197,7 +197,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   widget: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 32, vertical: 8),
-<<<<<<< Updated upstream
                                     child: SizedBox(
                                       width: MediaQuery.of(context).size.width *
                                           0.4,
@@ -212,16 +211,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                             height: 0,
                                           ),
                                         ),
-=======
-                                    child: Text(
-                                      '${pref?.getString("Currency") ?? "\$"} ${pref?.getDouble("balance") ?? 0}',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 29,
-                                        fontFamily: 'avenir',
-                                        fontWeight: FontWeight.w700,
-                                        
->>>>>>> Stashed changes
                                       ),
                                     ),
                                   ),

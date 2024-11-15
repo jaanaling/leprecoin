@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 import 'package:leprecoin/src/core/dependency_injection.dart';
 import 'package:leprecoin/src/feature/transaction/model/transaction.dart';
 import 'package:leprecoin/src/feature/transaction/repository/repository.dart';
@@ -67,6 +69,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
           balance +
               (event.transaction.isIncome ? 1 : -1) * event.transaction.sum);
       await _repository.save(event.transaction);
+      event.context.pop();
       add(LoadTransaction());
     } catch (e) {
       emit(const TransactionError('Failed to save transaction'));

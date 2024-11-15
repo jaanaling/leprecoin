@@ -2,8 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:leprecoin/src/core/utils/app_icon.dart';
+import 'package:leprecoin/src/feature/transaction/bloc/transaction_bloc.dart';
+import 'package:leprecoin/src/feature/transaction/model/transaction.dart';
 
 import 'package:leprecoin/ui_kit/app_button/app_button.dart';
 
@@ -22,6 +25,12 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   final _titleController = TextEditingController();
   bool isAmountError = false;
   bool isTitleError = false;
+  bool isCategoryError = false;
+  TransElement? transElement;
+
+  void changeSelection() {
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +64,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       ),
                     ),
                     onPressed: () => setState(() {
+                      if (isIncome) {
+                        transElement = null;
+                      }
                       isIncome = false;
                     }),
                   ),
@@ -76,6 +88,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       ),
                     ),
                     onPressed: () => setState(() {
+                      if (!isIncome) {
+                        transElement = null;
+                      }
                       isIncome = true;
                     }),
                   ),
@@ -92,61 +107,92 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                   onPressed: () {
                     showCupertinoDialog(
                       context: context,
-                      builder: (childContext) => CupertinoAlertDialog(
-                        title: Text('Select Category'),
-                        content: Column(
-                          children: [
-                            SizedBox(
-                              height: 150,
-                              child: CupertinoPicker(
-                                scrollController: FixedExtentScrollController(),
-                                itemExtent: 32,
-                                onSelectedItemChanged: (int index) {
-                                  // Выбор будет обрабатываться автоматически
-                                },
-                                children: List.generate(transElements.length,
-                                    (index) {
-                                  return Center(
-                                      child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      AppIcon(asset: transElements[index].icon),
-                                      Text(transElements[index].title),
-                                    ],
-                                  ));
-                                }),
+                      builder: (childContext) {
+                        final elements = transElements
+                            .where(
+                              (element) => element.isIncome == isIncome,
+                            )
+                            .toList();
+                        TransElement selectedElement = elements.first;
+                        return CupertinoAlertDialog(
+                          title: Text('Select Category'),
+                          content: Column(
+                            children: [
+                              SizedBox(
+                                height: 150,
+                                child: CupertinoPicker(
+                                  scrollController:
+                                      FixedExtentScrollController(),
+                                  itemExtent: 48,
+                                  onSelectedItemChanged: (int index) {
+                                    selectedElement = elements[index];
+                                  },
+                                  children:
+                                      List.generate(elements.length, (index) {
+                                    final element = elements[index];
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Center(
+                                          child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          AppIcon(asset: element.icon),
+                                          Text(element.title),
+                                        ],
+                                      )),
+                                    );
+                                  }),
+                                ),
                               ),
+                            ],
+                          ),
+                          actions: [
+                            CupertinoDialogAction(
+                              child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                    color: CupertinoColors.destructiveRed,
+                                    fontFamily: 'avenir',
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              onPressed: () {
+                                Navigator.pop(childContext);
+                              },
+                            ),
+                            CupertinoDialogAction(
+                              child: Text(
+                                'Select',
+                                style: TextStyle(
+                                    color: CupertinoColors.activeBlue,
+                                    fontFamily: 'avenir',
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              onPressed: () {
+                                transElement = selectedElement;
+                                isCategoryError = false;
+                                changeSelection();
+                                Navigator.pop(childContext);
+                              },
                             ),
                           ],
-                        ),
-                        actions: [
-                          CupertinoDialogAction(
-                            child: Text('Cancel'),
-                            onPressed: () {
-                              Navigator.pop(childContext);
-                            },
-                          ),
-                          CupertinoDialogAction(
-                            child: Text('Select'),
-                            onPressed: () {
-                              // Обработка выбранного элемента
-                              // Например, можно вернуть выбранный элемент обратно в приложение
-                              Navigator.pop(childContext);
-                            },
-                          ),
-                        ],
-                      ),
+                        );
+                      },
                     );
                   },
-                  width: 140,
+                  width: 0,
                   widget: Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        if (transElement != null)
+                          Padding(
+                            padding: const EdgeInsets.only(right: 18),
+                            child: AppIcon(asset: transElement?.icon ?? ''),
+                          ),
                         Text(
-                          'category',
+                          transElement?.title ?? 'category',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Color(0xFF585858),
@@ -166,6 +212,17 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                 ),
               ),
             ),
+            if (isCategoryError)
+              Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 5, right: 15),
+                  child: Text(
+                    'Enter valid value',
+                    style: TextStyle(fontSize: 18, color: Colors.red),
+                  ),
+                ),
+              ),
             const Gap(10),
             Container(
               width: width * 0.89,
@@ -389,15 +446,35 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       isTitleError = true;
                     });
                   }
+                  if (transElement == null) {
+                    setState(() {
+                      isCategoryError = true;
+                    });
+                  }
 
                   if (!(_amountController.text.isEmpty ||
                           double.parse(_amountController.text) == 0) &&
                       !(_titleController.text.isEmpty ||
-                          _titleController.text.trim().isEmpty)) {
+                          _titleController.text.trim().isEmpty) &&
+                      transElement != null) {
                     setState(() {
                       isAmountError = false;
                       isTitleError = false;
+                      isCategoryError = false;
                     });
+                    context.read<TransactionBloc>().add(
+                          SaveTransaction(
+                            Transaction(
+                              id: DateTime.now().microsecondsSinceEpoch,
+                              title: _titleController.text,
+                              sum: double.parse(_amountController.text),
+                              date: DateTime.now().toString(),
+                              isIncome: isIncome,
+                              type: transElement?.title ?? '',
+                            ),
+                            context
+                          ),
+                        );
                   }
                 },
                 width: 298,
