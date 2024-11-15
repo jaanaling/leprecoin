@@ -200,16 +200,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: SizedBox(
                                       width: MediaQuery.of(context).size.width *
                                           0.4,
-                                      child: Expanded(
-                                        child: Text(
-                                          '${pref?.getString("Currency") ?? "\$"} ${pref?.getDouble("balance")?.ceilToDouble() ?? 0}',
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 29,
-                                            fontFamily: 'avenir',
-                                            fontWeight: FontWeight.w700,
-                                            height: 0,
-                                          ),
+                                      child: Text(
+                                        '${pref?.getString("Currency") ?? "\$"} ${pref?.getDouble("balance")?.ceilToDouble() ?? 0}',
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 29,
+                                          fontFamily: 'avenir',
+                                          fontWeight: FontWeight.w700,
+                                          height: 0,
                                         ),
                                       ),
                                     ),

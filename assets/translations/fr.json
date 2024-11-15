@@ -156,5 +156,17 @@
     "Enter goal amount": "Entrez le montant de l'objectif",
     "+ add new goal": "+ ajouter un nouvel objectif",
     "SELECT LANGUAGE": "CHOISIR LA LANGUE",
-    "SELECT CURRENCY": "CHOISIR LA DEVISE"
+    "SELECT CURRENCY": "CHOSIR LA DEVISE",
+    "consumption": "consommation",
+    "income": "revenus",
+    "Select Category": "Sélectionner une catégorie",
+    "Select": "Sélectionner",
+    "category": "catégorie",
+    "Enter amount": "Entrer le montant",
+    "Enter Text...": "Entrer le texte...",
+    "Enter valid value": "Entrer une valeur valide",
+    "Enter title": "Entrer un titre",
+    "save transaction": "enregistrer la transaction",
+    "No transactions here!": "Pas de transactions ici!",
+    "+ add new transaction": "+ ajouter une nouvelle transaction"
 }

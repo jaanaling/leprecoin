@@ -11,11 +11,12 @@ class LoadTransaction extends TransactionEvent {}
 
 class UpdateTransaction extends TransactionEvent {
   final Transaction transaction;
+  final BuildContext context;
 
-  const UpdateTransaction(this.transaction);
+  const UpdateTransaction(this.transaction, this.context);
 
   @override
-  List<Object> get props => [transaction];
+  List<Object> get props => [transaction, context];
 }
 
 class SaveTransaction extends TransactionEvent {

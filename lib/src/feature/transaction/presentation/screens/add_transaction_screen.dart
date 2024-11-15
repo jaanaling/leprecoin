@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,13 +8,15 @@ import 'package:gap/gap.dart';
 import 'package:leprecoin/src/core/utils/app_icon.dart';
 import 'package:leprecoin/src/feature/transaction/bloc/transaction_bloc.dart';
 import 'package:leprecoin/src/feature/transaction/model/transaction.dart';
+import 'package:leprecoin/src/feature/transaction/model/transaction.dart';
 
 import 'package:leprecoin/ui_kit/app_button/app_button.dart';
 
 import '../../model/trans_element.dart';
 
 class AddTransactionScreen extends StatefulWidget {
-  const AddTransactionScreen({super.key});
+  final Transaction? transaction;
+  const AddTransactionScreen({super.key, this.transaction});
 
   @override
   State<AddTransactionScreen> createState() => _AddTransactionScreenState();
@@ -30,6 +33,21 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
   void changeSelection() {
     setState(() {});
+  }
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (widget.transaction != null) {
+      _amountController.text = widget.transaction!.sum.toString();
+      _titleController.text = widget.transaction!.title;
+      isIncome = widget.transaction!.isIncome;
+      transElement = transElements.firstWhere(
+        (element) => element.title == widget.transaction!.type,
+      );
+    }
   }
 
   @override
@@ -61,7 +79,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                           fontSize: 18,
                           fontFamily: 'satoshi',
                         ),
-                      ),
+                      ).tr(),
                     ),
                     onPressed: () => setState(() {
                       if (isIncome) {
@@ -85,7 +103,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                           fontSize: 18,
                           fontFamily: 'satoshi',
                         ),
-                      ),
+                      ).tr(),
                     ),
                     onPressed: () => setState(() {
                       if (!isIncome) {
@@ -115,7 +133,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                             .toList();
                         TransElement selectedElement = elements.first;
                         return CupertinoAlertDialog(
-                          title: Text('Select Category'),
+                          title: Text('Select Category').tr(),
                           content: Column(
                             children: [
                               SizedBox(
@@ -138,7 +156,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           AppIcon(asset: element.icon),
-                                          Text(element.title),
+                                          Text(element.title).tr(),
                                         ],
                                       )),
                                     );
@@ -150,12 +168,12 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                           actions: [
                             CupertinoDialogAction(
                               child: Text(
-                                'Cancel',
+                                'cancel',
                                 style: TextStyle(
                                     color: CupertinoColors.destructiveRed,
                                     fontFamily: 'avenir',
                                     fontWeight: FontWeight.bold),
-                              ),
+                              ).tr(),
                               onPressed: () {
                                 Navigator.pop(childContext);
                               },
@@ -167,7 +185,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                                     color: CupertinoColors.activeBlue,
                                     fontFamily: 'avenir',
                                     fontWeight: FontWeight.bold),
-                              ),
+                              ).tr(),
                               onPressed: () {
                                 transElement = selectedElement;
                                 isCategoryError = false;
@@ -200,7 +218,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                             fontSize: 18,
                             fontFamily: 'satoshi',
                           ),
-                        ),
+                        ).tr(),
                         Gap(14),
                         Icon(
                           CupertinoIcons.chevron_down,
@@ -250,7 +268,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                         fontFamily: 'avenir',
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
+                    ).tr(),
                     const Gap(12),
                     Container(
                       width: width * 0.54,
@@ -327,7 +345,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                           }
                         },
                         keyboardType: TextInputType.number,
-                        placeholder: 'Enter Text...',
+                        placeholder: 'Enter Text...'.tr(),
                         placeholderStyle: const TextStyle(
                           color: Color(0xFF7A7A7A),
                           fontSize: 21,
@@ -357,7 +375,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                         child: Text(
                           'Enter valid value',
                           style: TextStyle(fontSize: 18, color: Colors.red),
-                        ),
+                        ).tr(),
                       ),
                     const Gap(19),
                     const Text(
@@ -369,7 +387,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                         fontFamily: 'avenir',
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
+                    ).tr(),
                     const Gap(12),
                     Container(
                       width: width * 0.54,
@@ -385,7 +403,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       ),
                       child: CupertinoTextField(
                         controller: _titleController,
-                        placeholder: 'Enter Text...',
+                        placeholder: 'Enter Text...'.tr(),
                         placeholderStyle: const TextStyle(
                           color: Color(0xFF7A7A7A),
                           fontSize: 21,
@@ -423,7 +441,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                         child: Text(
                           'Enter valid value',
                           style: TextStyle(fontSize: 18, color: Colors.red),
-                        ),
+                        ).tr(),
                       ),
                     const Gap(28),
                   ],
@@ -462,24 +480,34 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       isTitleError = false;
                       isCategoryError = false;
                     });
-                    context.read<TransactionBloc>().add(
-                          SaveTransaction(
-                            Transaction(
-                              id: DateTime.now().microsecondsSinceEpoch,
-                              title: _titleController.text,
-                              sum: double.parse(_amountController.text),
-                              date: DateTime.now().toString(),
-                              isIncome: isIncome,
-                              type: transElement?.title ?? '',
-                            ),
-                            context
+                    if (widget.transaction == null) {
+                      context.read<TransactionBloc>().add(
+                            SaveTransaction(
+                                Transaction(
+                                  id: DateTime.now().microsecondsSinceEpoch,
+                                  title: _titleController.text,
+                                  sum: double.parse(_amountController.text),
+                                  date: DateTime.now().toString(),
+                                  isIncome: isIncome,
+                                  type: transElement?.title ?? '',
+                                ),
+                                context),
+                          );
+                    } else {
+                      context.read<TransactionBloc>().add(UpdateTransaction(
+                          widget.transaction!.copyWith(
+                            title: _titleController.text,
+                            sum: double.parse(_amountController.text),
+                            isIncome: isIncome,
+                            type: transElement?.title ?? '',
                           ),
-                        );
+                          context));
+                    }
                   }
                 },
                 width: 298,
                 color: ButtonColors.green,
-                widget: const Padding(
+                widget: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 50, vertical: 21),
                   child: Text(
                     'save transaction',
@@ -487,7 +515,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       color: Colors.white,
                       fontSize: 28,
                     ),
-                  ),
+                  ).tr(),
                 ),
               ),
             ),

@@ -155,5 +155,17 @@
     "GOAL AMOUNT": "MONTO DE LA META",
     "Enter goal amount": "Introduce el monto de la meta",
     "+ add new goal": "+ añadir nueva meta",  "SELECT LANGUAGE": "SELECCIONAR IDIOMA",
-    "SELECT CURRENCY": "SELECCIONAR MONEDA"
+    "SELECT CURRENCY": "SELECCIONAR MONEDA",
+    "consumption": "consumo",
+    "income": "ingresos",
+    "Select Category": "Seleccionar Categoría",
+    "Select": "Seleccionar",
+    "category": "categoría",
+    "Enter amount": "Introduce el monto",
+    "Enter Text...": "Introduce texto...",
+    "Enter valid value": "Introduce un valor válido",
+    "Enter title": "Introduce un título",
+    "save transaction": "guardar transacción",
+    "No transactions here!": "¡No hay transacciones aquí!",
+    "+ add new transaction": "+ añadir nueva transacción"
 }

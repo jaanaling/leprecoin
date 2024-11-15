@@ -50,6 +50,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
                   (event.transaction.sum - oldTransaction.sum));
 
       await _repository.update(event.transaction);
+      event.context.pop();
       add(LoadTransaction());
     } catch (e) {
       emit(const TransactionError('Failed to update transaction'));

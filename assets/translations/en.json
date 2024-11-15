@@ -157,6 +157,19 @@
 "Enter goal amount":"Enter goal amount",
 "+ add new goal":"+ add new goal",
 "SELECT LANGUAGE":"SELECT LANGUAGE",
-"SELECT CURRENCY":"SELECT CURRENCY"
+"SELECT CURRENCY":"SELECT CURRENCY",
+
+"consumption":   "consumption",
+"income":   "income",
+"Select Category":   "Select Category",
+"Select":   "Select",
+"category":   "category",
+"Enter amount":   "Enter amount",
+"Enter Text...":   "Enter Text...",
+"Enter valid value":   "Enter valid value",
+"Enter title":   "Enter title",
+"save transaction":   "save transaction",
+"No transactions here!":   "No transactions here!",
+"+ add new transaction":   "+ add new transaction"
 }
 

@@ -8,6 +8,7 @@ import 'package:leprecoin/src/feature/home/presentation/screens/analytic_screen.
 import 'package:leprecoin/src/feature/home/presentation/screens/home_screen.dart';
 import 'package:leprecoin/src/feature/splash/presentation/screens/splash_screen.dart';
 import 'package:leprecoin/src/feature/tips/presentation/screens/tips_screen.dart';
+import 'package:leprecoin/src/feature/transaction/model/transaction.dart';
 import 'package:leprecoin/src/feature/transaction/presentation/screens/add_transaction_screen.dart';
 import 'package:leprecoin/src/feature/transaction/presentation/screens/transaction_screen.dart';
 
@@ -84,7 +85,7 @@ GoRouter buildGoRouter = GoRouter(
               routes: [
                 GoRoute(
                   path: RouteValue.addTransaction.path,
-                  builder: (context, state) => AddTransactionScreen(),
+                  builder: (context, state) => AddTransactionScreen(transaction: state.extra as Transaction?,),
 
                 )
               ]
