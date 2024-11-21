@@ -1,3 +1,4 @@
+import 'package:advertising_id/advertising_id.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:leprecoin/routes/route_value.dart';
 import 'package:leprecoin/src/core/utils/app_icon.dart';
@@ -26,8 +27,8 @@ class _SplashScreenState extends State<SplashScreen>
 
   Future<void> startLoading(BuildContext context) async {
     await Future.delayed(const Duration(milliseconds: 1000));
-    //
-    // // final adId = await AdvertisingId.id(true);
+
+    final adId = await AdvertisingId.id(true);
     // // FirebaseMessaging instance = FirebaseMessaging.instance;
     // // final settings =
     // //     await instance.requestPermission(alert: true, badge: true, sound: true);

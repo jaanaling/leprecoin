@@ -41,6 +41,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isIpad = MediaQuery.of(context).size.shortestSide >= 600;
     return BlocBuilder<GoalsBloc, GoalsState>(
       builder: (context, state) {
         if (state is GoalsLoaded) {
@@ -72,7 +73,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 30,
-                              
                               fontFamily: 'avenir',
                             ),
                           ).tr(),
@@ -127,26 +127,25 @@ class _GoalsScreenState extends State<GoalsScreen> {
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                           Text(
-                                                        "${"Balance:".tr()} ${localbalance.toStringAsFixed(2)}${pref?.getString("Currency") ?? "\$"}",
-                                                        style: TextStyle(
-                                                          color:
-                                                              Colors.black,
-                                                          fontSize: 12,
-                                                          fontFamily:
-                                                              'avenir',
-                                                          fontWeight:
-                                                              FontWeight
-                                                                  .w400,
-                                                          height: 0,
-                                                        ),
-                                                      ),
+                                                          Text(
+                                                            "${"Balance:".tr()} ${localbalance.toStringAsFixed(2)}${pref?.getString("Currency") ?? "\$"}",
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 12,
+                                                              fontFamily:
+                                                                  'avenir',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              height: 0,
+                                                            ),
+                                                          ),
                                                           Text(
                                                             "${"Final sum:".tr()} $finalsum${pref?.getString("Currency") ?? "\$"}",
-                                                            style:
-                                                                TextStyle(
-                                                              color: Colors
-                                                                  .black,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
                                                               fontSize: 12,
                                                               fontFamily:
                                                                   'avenir',
@@ -158,10 +157,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
                                                           ),
                                                           Text(
                                                             "${"Current sum:".tr()} ${localNowSum.toStringAsFixed(2)}${pref?.getString("Currency") ?? "\$"}",
-                                                            style:
-                                                                TextStyle(
-                                                              color: Colors
-                                                                  .black,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
                                                               fontSize: 12,
                                                               fontFamily:
                                                                   'avenir',
@@ -275,7 +273,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 21,
-                                            
                                             fontFamily: 'avenir',
                                           ),
                                         ),
@@ -321,16 +318,17 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 child: AppIcon(
                   asset: IconProvider.backLight.buildImageUrl(),
                   width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.fitWidth,
+                  height: isIpad ? 600 : null,
+                  fit: isIpad ? BoxFit.fill : BoxFit.fitWidth,
                 ),
               ),
               Positioned(
                 bottom: 55,
-                left: 121,
+                left: isIpad? 400: 121,
                 child: Transform.rotate(
                   angle: 13,
                   child: AppIcon(
-                    width: 218,
+                    width: isIpad?400: 218,
                     fit: BoxFit.fitWidth,
                     asset: overallCompletionPercentage >= 0.8
                         ? IconProvider.pot5.buildImageUrl()
@@ -348,13 +346,15 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 bottom: 0,
                 left: -39,
                 child: AppIcon(
+                  height: isIpad?600: 337,
                   asset: overallCompletionPercentage > 0.2
                       ? IconProvider.lepr0.buildImageUrl()
                       : IconProvider.lepr1.buildImageUrl(),
+                  fit: BoxFit.fitHeight,
                 ),
               ),
               Positioned(
-                bottom: 127,
+                bottom: MediaQuery.of(context).size.height * 0.15,
                 right: MediaQuery.of(context).size.width * 0.05,
                 child: AppButton(
                   color: ButtonColors.purple,
@@ -374,7 +374,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                               fontSize: 18,
                               fontFamily: 'avenir',
                               fontWeight: FontWeight.bold,
-                              
                             ),
                           ).tr(),
                           content: Column(
@@ -387,7 +386,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                                   fontSize: 18,
                                   fontFamily: 'avenir',
                                   fontWeight: FontWeight.w500,
-                                  
                                 ),
                               ).tr(),
                               const Gap(17),
@@ -399,7 +397,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 21,
-                                  
                                   fontFamily: 'avenir',
                                 ),
                               ),
@@ -440,7 +437,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                                   fontSize: 18,
                                   fontFamily: 'avenir',
                                   fontWeight: FontWeight.bold,
-                                  
                                 ),
                               ).tr(),
                             ),
@@ -462,7 +458,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                                   fontSize: 18,
                                   fontFamily: 'avenir',
                                   fontWeight: FontWeight.bold,
-                                  
                                 ),
                               ).tr(),
                             ),

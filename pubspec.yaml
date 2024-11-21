@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: '>=3.4.3 <4.0.0'
+  sdk: '>=3.4.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -25,12 +25,22 @@ dependencies:
 
   flutter_localizations:
     sdk: flutter
-
+  flutter_launcher_icons: ^0.13.1
+  advertising_id: ^2.7.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   lint: ^2.3.0
+  json_serializable: ^6.8.0
+  build_runner: ^2.4.9
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/icon.png"
+  min_sdk_android: 21
+  remove_alpha_ios: true
 
 flutter:
   uses-material-design: true

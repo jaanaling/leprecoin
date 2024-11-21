@@ -282,7 +282,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 ),
               ),
               Positioned(
-                bottom: 127,
+                bottom: MediaQuery.of(context).size.height * 0.15,
                 right: MediaQuery.of(context).size.width * 0.05,
                 width: 265,
                 child: AppButton(
