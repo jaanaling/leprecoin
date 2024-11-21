@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen>
         ),
         Positioned(
           top: height * 0.17,
-          child: AppIcon(asset: IconProvider.logo.buildImageUrl()),
+          child: AppIcon(asset: IconProvider.logo.buildImageUrl(), width: 350, fit: BoxFit.fitWidth,),
         ),
         Positioned(
           bottom: height * 0.13,
