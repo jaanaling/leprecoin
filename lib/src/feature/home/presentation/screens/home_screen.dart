@@ -264,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  _isMenuOpen = false; // Закрыть меню при нажатии вне
+                  _isMenuOpen = false;
                 });
               },
               child: ColoredBox(color: Color.fromARGB(85, 12, 12, 12)),
@@ -548,14 +548,17 @@ class BurgerTile2 extends StatelessWidget {
       onTap: onPressed,
       child: Row(
         children: [
-          Text(
-            text,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-              fontFamily: 'avenir',
-              fontWeight: FontWeight.w700,
-              
+          SizedBox(
+            width: 70,
+            child: Text(
+              text,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontFamily: 'avenir',
+                fontWeight: FontWeight.w700,
+
+              ),
             ),
           ),
           Gap(16),
