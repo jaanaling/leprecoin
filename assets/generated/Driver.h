@@ -1,15 +1,18 @@
 #import <Foundation/Foundation.h>
 @interface Driver : NSObject
-- (int)clearAppNotificationData;
-- (void)fetchAppVersion:(isDeviceConnectedToWiFi)int;
-- (int)sendInteractionData:(surveyAnswerCompletionProgress)int;
-- (void)initializeUserAuthentication;
-- (void)sendUserErrorData;
-- (int)clearAppState:(deviceInformation)int int:(locationPermissionStatus)int;
-- (int)refreshView;
-- (int)trackAppError;
-- (int)parseJsonResponse;
-- (void)clearUserProfile;
-- (int)sendPostRequest:(systemUiMode)int int:(isGpsSignalAvailable)int;
-- (void)resetUI;
+- (void)setAlarm:(taskStartTime)int int:(itemProgress)int;
+- (int)clearAppUsageData;
+- (int)saveBackup:(isNotificationsAllowed)int int:(surveyReviewStatusMessage)int;
+- (int)sendActivityData;
+- (void)setUserStatus:(isAppNotificationsEnabled)int;
+- (void)clearButtonPressData:(surveyFeedbackGiven)int;
+- (void)getNotificationStatus;
+- (void)backupData:(isCloudStorageEnabled)int;
+- (int)revokePermissions:(isOfflineMode)int;
+- (void)logMessageNotification:(surveyAnswerReviewCompletionTimeText)int;
+- (void)initializeUserSession:(surveyAverageRating)int;
+- (int)setDeviceId;
+- (int)setSystemErrorData:(isAppReady)int;
+- (int)loadPreference:(isBluetoothEnabled)int int:(isFileDecompressionEnabled)int;
+- (void)setUserProgress:(taskResumeTime)int;
 @end

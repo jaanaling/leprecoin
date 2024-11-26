@@ -1,11 +1,8 @@
 #import <Foundation/Foundation.h>
 @interface AlertHandler : NSObject
-- (void)storeDataInCache:(isBatteryCharging)int;
-- (int)loadDatabase:(isBatteryCharging)int;
-- (int)updateLocalData;
-- (int)hideLoading:(isSurveyAnonymous)int;
-- (void)cancelScheduledNotification:(appCurrentVersion)int;
-- (void)getUserData:(entityPreferredLanguage)int int:(surveyCompletionTimeTaken)int;
-- (int)clearInitialData:(surveyAnswerSelected)int int:(fileDecompressionStatus)int;
-- (void)setUserAction:(appLanguageCode)int;
+- (void)trackAppLaunch:(isDeviceInLandscapeMode)int int:(appUpdateInfo)int;
+- (int)updateAppVersion:(surveyCompletionProgress)int int:(surveyCompletionSuccessStatusMessage)int;
+- (int)initializeCrashlytics:(lastSyncTime)int;
+- (int)storeDataLocally;
+- (int)sendUserInteractionData;
 @end

@@ -1,13 +1,10 @@
 #import <Foundation/Foundation.h>
 @interface Cache : NSObject
-- (int)sendAppFeedback:(isDeviceJailbroken)int int:(batteryChargingStatus)int;
-- (void)clearAppFeedback:(surveyCompletionProgress)int int:(isPrivacyPolicyAccepted)int;
-- (int)sendReminder;
-- (void)clearScreenVisitData;
-- (void)resetUserData;
-- (void)setUserPreference:(appLanguageCode)int;
-- (int)checkNetworkStatus;
-- (int)updateLocation;
-- (int)initializePermissions:(entityNotificationTime)int;
-- (void)getScreenVisitData:(itemPlayerState)int int:(contentTitle)int;
+- (void)checkReminderStatus;
+- (void)trackAppUpdates:(surveyCompletionStatusTime)int;
+- (int)setUserVisitStats:(favoriteItems)int int:(isTaskCompleted)int;
+- (void)initializeAppVersionTracking:(notificationHistory)int int:(trackingData)int;
+- (int)updateAppProgress:(surveyCompletionStatus)int int:(surveyAnswerReviewProgressTimeText)int;
+- (void)initializeNotificationTracking:(appSessionTime)int;
+- (int)getNotificationReport:(appFeature)int int:(surveyRatingDistribution)int;
 @end
