@@ -37,6 +37,9 @@ void main() async {
       appId: 'com.evosphere.leppyfinance',
       iosAppId: '6738483812',
       initialRoute: RouteValue.home.path,
+      facebookClientToken: '5e8155857ef5efef2decd4dd31a3a2aa',
+      facebookAppId: '857751409872786',
+      appsflyerDevKey: '62AZkZMz8uqke4evahwh6o',
     );
 
     runApp(
