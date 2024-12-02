@@ -454,6 +454,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               context.setLocale(Locale('fr'));
                             }),
                           ),
+                          Gap(26),
+                          CupertinoButton(child: Text('Privacy Policy', style: TextStyle(color: CupertinoColors.activeBlue),), padding: EdgeInsets.zero, onPressed: (){
+                            context.push('/privacy');
+                          })
                         ],
                       ),
                     ),
