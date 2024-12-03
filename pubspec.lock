@@ -243,8 +243,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "4e912028a80fc2002c98f6124eb68c1e82d75bdf"
-      resolved-ref: "4e912028a80fc2002c98f6124eb68c1e82d75bdf"
+      ref: "812aadbb74faf0a9dc8a01c2201c03570922e368"
+      resolved-ref: "812aadbb74faf0a9dc8a01c2201c03570922e368"
       url: "https://github.com/Vennylost/core_logic.git"
     source: git
     version: "1.0.4"
